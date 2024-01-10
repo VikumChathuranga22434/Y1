@@ -1,0 +1,91 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+add-sub.com_ -- emu8086 assembler version: 4.08  
+ 
+[ 05-Nov-22  --  10:08:40 PM ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       name "add-sub"
+[   2]        :                                       
+[   3]        :                                       org 100h
+[   4]        :                                       
+[   5]    0100: B0 05                                 mov al, 5       ;Number 1.
+[   6]    0102: B3 0A                                 mov bl, 10      ;Number 2.
+[   7]        :                                       
+[   8]        :                                       ; 5 + 10 = 15 (in decimal)
+[   9]    0104: 02 D8                                 add bl, al      ; bl = bl + al
+[  10]        :                                       
+[  11]        :                                       ;Print result in binary:
+[  12]    0106: B9 08 00                              mov cx, 8            ;Start counter (counter = 8
+[  13]        :                                       ; as the number to be printed
+[  14]        :                                       ; is 8 bit long.
+[  15]        :                                       
+[  16]    0109: B4 02                                 print: mov ah, 2     ;Starting the fuction named print.
+[  17]        :                                       ; Setting the control bytes.
+[  18]        :                                       
+[  19]    010B: B2 30                                 mov dl, '0'   ;Setting register value to zero
+[  20]        :                                       ; (in ascii).
+[  21]        :                                       
+[  22]    010D: F6 C3 80                              test bl, 10000000b  ;Testing the first bit.
+[  23]        :                                       ; AND operation of the
+[  24]        :                                       ; first bit of register
+[  25]        :                                       ; b1 with the first bit
+[  26]        :                                       ; of 10000000.
+[  27]        :                                       
+[  28]    0110: 74 02                                 jz zero       ;"jz" means jump if zero.
+[  29]        :                                       ; This checks if the zero flag
+[  30]        :                                       ; is set, if the zero flag is set,
+[  31]        :                                       ; program jumps to the given
+[  32]        :                                       ; function (in this case function
+[  33]        :                                       ; named zero).
+[  34]        :                                       
+[  35]    0112: B2 31                                 mov dl, '1'   ;Setting the register value
+[  36]        :                                       ; to 1 (in ascii).
+[  37]        :                                       
+[  38]    0114: CD 21                                 zero:  int 21h       ;Calling the interrupt 21h.
+[  39]        :                                       ; This is a DOS command which
+[  40]        :                                       ; prints the value in the DX
+[  41]        :                                       ; register into the command window.
+[  42]        :                                       
+[  43]    0116: D0 E3                                 shl bl, 1     ;Bitwise shifting the BL register
+[  44]        :                                       ; to the left.
+[  45]        :                                       
+[  46]    0118: E2 EF                                 loop print           ;Used to loop print function.
+[  47]        :                                       ; If the CX value isn't 0,
+[  48]        :                                       ; CX will be deducted 1 and the
+[  49]        :                                       ; program will jump to the given
+[  50]        :                                       ; function. (eg:at the first
+[  51]        :                                       ; occurance, 8 will be deducted 1,
+[  52]        :                                       ; making the register value 7).
+[  53]        :                                       ; Else if CX value is 0, it will
+[  54]        :                                       ; move to the immediate next line.
+[  55]        :                                       
+[  56]        :                                       ;Print binary suffix:
+[  57]    011A: B2 62                                 mov dl, 'b'          ;Setting the register value to 'b'.
+[  58]        :                                       
+[  59]    011C: CD 21                                 int 21h              ;Calling the interrupt 21h.
+[  60]        :                                       ; This is a DOS command which
+[  61]        :                                       ; prints the value in the DX
+[  62]        :                                       ; register into the command window.
+[  63]        :                                       
+[  64]        :                                       ;Wait for any key press:
+[  65]    011E: B4 00                                 mov ah, 0            ;Reset control bytes.
+[  66]        :                                       
+[  67]    0120: CD 16                                 int 16h              ;Calling the interrupt 16h.
+[  68]        :                                       ; This is a command to wait for a
+[  69]        :                                       ; keyboard interrupt to proceed.
+[  70]        :                                       
+[  71]    0122: C3                                    ret
+[  72]        :                                       
+[  73]        :                                       
+ 
+===================================================================================================
+ 
+
+
+
+
+===================================================================================================

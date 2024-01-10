@@ -1,0 +1,20 @@
+#include <stdio.h>
+
+//Exercise 4 lec 5
+
+int main ()
+{
+	int x, y;
+	
+	for (x = 1; x <= 5; ++x)
+	{
+		for (y = 1; y <= x; ++y)
+		{
+			printf ("%d", y);
+		}
+		
+		printf ("\n");
+	}
+	
+	return 0;
+}
